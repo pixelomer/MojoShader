@@ -4088,6 +4088,74 @@ DECLSPEC void MOJOSHADER_d3d11DeleteShader(MOJOSHADER_d3d11Context *context,
 DECLSPEC void MOJOSHADER_d3d11DestroyContext(MOJOSHADER_d3d11Context *context);
 
 
+/* Headless interface... */
+
+typedef struct MOJOSHADER_headlessContext MOJOSHADER_headlessContext;
+typedef struct MOJOSHADER_headlessShaderData MOJOSHADER_headlessShaderData;
+
+/*
+ * Prepares a context to manage headless shaders.
+ *
+ * You do not need to call this if all you want is MOJOSHADER_parse().
+ *
+ * As MojoShader requires some memory to be allocated, you may provide a
+ *  custom allocator to this function, which will be used to allocate/free
+ *  memory. They function just like malloc() and free(). We do not use
+ *  realloc(). If you don't care, pass NULL in for the allocator functions.
+ *  If your allocator needs instance-specific data, you may supply it with the
+ *  (malloc_d) parameter. This pointer is passed as-is to your (m) and (f)
+ *  functions.
+ *
+ * Returns a new context on success, NULL on error.
+ */
+DECLSPEC MOJOSHADER_headlessContext *MOJOSHADER_headlessCreateContext(MOJOSHADER_malloc m,
+                                                                 MOJOSHADER_free f,
+                                                                 void *malloc_d);
+
+/*
+ * Deinitialize MojoShader's headless shader management.
+ *
+ * This will clean up resources previously allocated.
+ *
+ * This will not clean up shaders and programs you created! Please call
+ *  MOJOSHADER_headlessDeleteShader() and MOJOSHADER_headlessDeleteProgram() to clean
+ *  those up before calling this function!
+ *
+ * This function destroys the MOJOSHADER_headlessContext you pass it.
+ */
+DECLSPEC void MOJOSHADER_headlessDestroyContext(MOJOSHADER_headlessContext *ctx);
+
+/*
+ * Compile a buffer of Direct3D shader bytecode into an headless shader module.
+ *
+ *   (tokenbuf) is a buffer of Direct3D shader bytecode.
+ *   (bufsize) is the size, in bytes, of the bytecode buffer.
+ *   (swiz), (swizcount), (smap), and (smapcount) are passed to
+ *   MOJOSHADER_parse() unmolested.
+ *
+ * Returns NULL on error, or a shader handle on success.
+ *
+ * Compiled shaders from this function may not be shared between contexts.
+ */
+DECLSPEC MOJOSHADER_headlessShaderData *MOJOSHADER_headlessCompileShader(MOJOSHADER_headlessContext *ctx,
+                                                                            const char *mainfn,
+                                                                            const unsigned char *tokenbuf,
+                                                                            const unsigned int bufsize,
+                                                                            const MOJOSHADER_swizzle *swiz,
+                                                                            const unsigned int swizcount,
+                                                                            const MOJOSHADER_samplerMap *smap,
+                                                                            const unsigned int smapcount);
+
+/*
+ * Get the MOJOSHADER_parseData structure that was produced from the
+ *  call to MOJOSHADER_headlessCompileShader().
+ *
+ * This data is read-only, and you should NOT attempt to free it. This
+ *  pointer remains valid until the shader is deleted.
+ */
+DECLSPEC const MOJOSHADER_parseData *MOJOSHADER_headlessGetShaderParseData(MOJOSHADER_headlessShaderData *shader);
+
+
 /* Effects interface... */
 #include "mojoshader_effects.h"
 

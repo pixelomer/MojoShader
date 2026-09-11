@@ -316,6 +316,10 @@ static inline int Min(const int a, const int b)
 {
     return ((a < b) ? a : b);
 } // Min
+static inline int Max(const int a, const int b)
+{
+    return ((a > b) ? a : b);
+} // Max
 
 
 // Hashtables...
