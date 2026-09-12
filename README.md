@@ -1,3 +1,5 @@
+Horizon build instructions: [README.horizon.md](README.horizon.md)
+
 # MojoShader
 
 https://icculus.org/mojoshader/
