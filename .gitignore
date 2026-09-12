@@ -2,3 +2,5 @@
 # Horizon source builds
 /artifacts/
 **/__pycache__/
+
+/mojoshader_version.h
