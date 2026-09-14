@@ -1,5 +1,19 @@
 # MojoShader for Horizon
 
+> [!IMPORTANT]
+> This fork contains AI-assisted changes. Most of the work was done by
+> GPT-6 Astra. The produced code was not audited or verified by a human beyond
+> running it and confirming that it works as expected. Human maintainability or
+> readability was not a goal for this project.
+>
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+> SOFTWARE.
+
 This fork adds a headless shader context API and a standalone Horizon static-library build.
 The headless implementation incorporates psyGamer's patch from
 [Everest-libs](https://github.com/EverestAPI/Everest-libs/blob/3311fc9/patches/MojoShader_Headless.patch).
